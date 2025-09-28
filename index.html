@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smart Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header class="app-header">
+        <h1>Smart Calculator</h1>
+        <div class="toggles">
+            <label class="switch" title="Degrees / Radians">
+                <input type="checkbox" id="degRadToggle">
+                <span class="slider"></span>
+            </label>
+            <span id="degRadLabel">DEG</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="calculator">
+            <div class="display">
+                <input id="calc-input" type="text" placeholder="0" autocomplete="off" spellcheck="false">
+                <div id="calc-result">0</div>
+            </div>
+
+            <div class="keypad">
+                <div class="row">
+                    <button data-action="mc">MC</button>
+                    <button data-action="mr">MR</button>
+                    <button data-action="m+">M+</button>
+                    <button data-action="m-">M-</button>
+                    <button data-action="clear">C</button>
+                    <button data-action="back">←</button>
+                </div>
+                <div class="row">
+                    <button data-insert="(">(</button>
+                    <button data-insert=")">)</button>
+                    <button data-insert="%">%</button>
+                    <button data-insert="/">÷</button>
+                    <button data-insert="^">^</button>
+                    <button data-action="equals">=</button>
+                </div>
+                <div class="row">
+                    <button data-fn="sin">sin</button>
+                    <button data-fn="cos">cos</button>
+                    <button data-fn="tan">tan</button>
+                    <button data-fn="asin">asin</button>
+                    <button data-fn="acos">acos</button>
+                    <button data-fn="atan">atan</button>
+                </div>
+                <div class="row">
+                    <button data-fn="log">log</button>
+                    <button data-fn="ln">ln</button>
+                    <button data-fn="sqrt">√</button>
+                    <button data-fn="exp">exp</button>
+                    <button data-insert=",">,</button>
+                    <button data-fn="fact">!</button>
+                </div>
+                <div class="row">
+                    <button data-insert="7">7</button>
+                    <button data-insert="8">8</button>
+                    <button data-insert="9">9</button>
+                    <button data-insert="*">×</button>
+                    <button data-fn="nCr">nCr</button>
+                    <button data-fn="nPr">nPr</button>
+                </div>
+                <div class="row">
+                    <button data-insert="4">4</button>
+                    <button data-insert="5">5</button>
+                    <button data-insert="6">6</button>
+                    <button data-insert="-">−</button>
+                    <button data-action="ans">Ans</button>
+                    <button data-action="copy">Copy</button>
+                </div>
+                <div class="row">
+                    <button data-insert="1">1</button>
+                    <button data-insert="2">2</button>
+                    <button data-insert="3">3</button>
+                    <button data-insert="+">+</button>
+                    <button data-insert="0">0</button>
+                    <button data-insert=".">.</button>
+                </div>
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            <div class="tabs">
+                <button class="tab active" data-tab="history">History</button>
+                <button class="tab" data-tab="solver">Solver</button>
+                <button class="tab" data-tab="convert">Convert</button>
+                <button class="tab" data-tab="finance">Finance</button>
+                <button class="tab" data-tab="stats">Stats</button>
+                <button class="tab" data-tab="graph">Graph</button>
+            </div>
+            <div class="tab-panels">
+                <div id="panel-history" class="panel active">
+                    <ul id="history-list"></ul>
+                </div>
+
+                <div id="panel-solver" class="panel">
+                    <h3>Equation Solver</h3>
+                    <div class="solver-section">
+                        <h4>Linear: ax + b = c</h4>
+                        <div class="grid-3">
+                            <input id="lin-a" type="number" placeholder="a">
+                            <input id="lin-b" type="number" placeholder="b">
+                            <input id="lin-c" type="number" placeholder="c">
+                        </div>
+                        <button id="solve-linear">Solve</button>
+                        <pre id="linear-steps" class="steps"></pre>
+                    </div>
+                    <div class="solver-section">
+                        <h4>Quadratic: ax² + bx + c = 0</h4>
+                        <div class="grid-3">
+                            <input id="quad-a" type="number" placeholder="a">
+                            <input id="quad-b" type="number" placeholder="b">
+                            <input id="quad-c" type="number" placeholder="c">
+                        </div>
+                        <button id="solve-quadratic">Solve</button>
+                        <pre id="quadratic-steps" class="steps"></pre>
+                    </div>
+                </div>
+
+                <div id="panel-convert" class="panel">
+                    <h3>Unit Converter</h3>
+                    <div class="converter">
+                        <div class="grid-2">
+                            <input id="conv-value" type="number" placeholder="Value">
+                            <select id="conv-type">
+                                <option value="length">Length</option>
+                                <option value="weight">Weight</option>
+                                <option value="time">Time</option>
+                                <option value="temp">Temperature</option>
+                                <option value="currency">Currency</option>
+                            </select>
+                        </div>
+                        <div class="grid-2">
+                            <select id="conv-from"></select>
+                            <select id="conv-to"></select>
+                        </div>
+                        <button id="convert">Convert</button>
+                        <div id="conv-result" class="conv-result">—</div>
+                    </div>
+                </div>
+
+                <div id="panel-finance" class="panel">
+                    <h3>Finance Calculator</h3>
+                    <div class="finance">
+                        <div class="grid-3">
+                            <input id="loan-principal" type="number" placeholder="Principal">
+                            <input id="loan-rate" type="number" placeholder="Annual % rate">
+                            <input id="loan-term" type="number" placeholder="Months">
+                        </div>
+                        <button id="calc-emi">Compute EMI</button>
+                        <div id="emi-result" class="conv-result">—</div>
+                    </div>
+                </div>
+
+                <div id="panel-stats" class="panel">
+                    <h3>Statistics</h3>
+                    <textarea id="stats-input" rows="3" placeholder="Enter numbers separated by commas"></textarea>
+                    <div class="stats-actions">
+                        <button data-stats="summary">Summary</button>
+                        <button data-stats="permutations">nPr</button>
+                        <button data-stats="combinations">nCr</button>
+                    </div>
+                    <div class="grid-2">
+                        <input id="stats-n" type="number" placeholder="n (for nPr/nCr)">
+                        <input id="stats-r" type="number" placeholder="r (for nPr/nCr)">
+                    </div>
+                    <pre id="stats-output" class="steps"></pre>
+                </div>
+
+                <div id="panel-graph" class="panel">
+                    <h3>Graph Plotter</h3>
+                    <div class="grid-graph-params">
+                        <input id="graph-exp" type="text" placeholder="Enter f(x). Tip: separate multiple like x^2+1, sin(2x)">
+                        <input id="graph-xmin" type="number" placeholder="x min" value="-10">
+                        <input id="graph-xmax" type="number" placeholder="x max" value="10">
+                        <input id="graph-ymin" type="number" placeholder="y min" value="-10">
+                        <input id="graph-ymax" type="number" placeholder="y max" value="10">
+                    </div>
+                    <button id="plot">Plot</button>
+                    <canvas id="graph-canvas" width="600" height="360"></canvas>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <footer class="app-footer">© <span id="year"></span> Smart Calculator</footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+<noscript>This app requires JavaScript enabled.</noscript>
+
+</html>
